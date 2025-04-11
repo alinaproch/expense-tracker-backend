@@ -1,29 +1,24 @@
 import express from "express";
+import { createBudget, getBudgets } from "../controllers/budgetController.js";
+import { authMiddleware } from "../middlewares/authMiddleware.js";
 import { check } from "express-validator";
-import {
-  createBudget,
-  getAllBudgets,
-  getBudgetById,
-  updateBudget,
-  deleteBudget,
-} from "../controllers/budgetController.js";
+import { validateRequest } from "../middlewares/validationMiddleware.js";
 
 const router = express.Router();
 
 router.post(
   "/",
+  authMiddleware,
   [
-    check("name").not().isEmpty().withMessage("Budget name is required"),
-    check("amount")
+    check("name").notEmpty().withMessage("Name is required"),
+    check("totalAmount")
       .isFloat({ gt: 0 })
-      .withMessage("Amount must be a positive number"),
+      .withMessage("Total amount must be a positive number"),
   ],
+  validateRequest,
   createBudget
 );
 
-router.get("/", getAllBudgets);
-router.get("/:id", getBudgetById);
-router.put("/:id", updateBudget);
-router.delete("/:id", deleteBudget);
+router.get("/", authMiddleware, getBudgets);
 
 export default router;

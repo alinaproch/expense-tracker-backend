@@ -13,6 +13,4 @@ const Category = sequelize.define("Category", {
   },
 });
 
-Category.hasMany(Transaction);
-
 export default Category;

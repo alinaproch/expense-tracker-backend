@@ -1,26 +1,21 @@
 import express from "express";
 import { register, login } from "../controllers/userController.js";
 import { check } from "express-validator";
+import { validateRequest } from "../middlewares/validationMiddleware.js";
 
 const router = express.Router();
 
 router.post(
   "/register",
-  [
-    check("email").isEmail().withMessage("Invalid email"),
-    check("password")
-      .isLength({ min: 6 })
-      .withMessage("Password should be at least 6 characters"),
-  ],
+  [check("email").isEmail(), check("password").isLength({ min: 6 })],
+  validateRequest,
   register
 );
 
 router.post(
   "/login",
-  [
-    check("email").isEmail().withMessage("Invalid email"),
-    check("password").exists().withMessage("Password is required"),
-  ],
+  [check("email").isEmail(), check("password").exists()],
+  validateRequest,
   login
 );
 

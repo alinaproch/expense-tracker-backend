@@ -1,5 +1,7 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/db.js";
+import Budget from "./Budget.js";
+import Category from "./Category.js";
 
 const Transaction = sequelize.define("Transaction", {
   id: {
@@ -11,11 +13,10 @@ const Transaction = sequelize.define("Transaction", {
     type: DataTypes.FLOAT,
     allowNull: false,
   },
-  description: {
-    type: DataTypes.STRING,
-  },
+  description: DataTypes.STRING,
 });
 
-Transaction.belongsTo(Budget); // One-to-Many relationship with Budget
+Transaction.belongsTo(Budget);
+Transaction.belongsTo(Category);
 
 export default Transaction;

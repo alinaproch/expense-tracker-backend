@@ -1,6 +1,5 @@
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import { User } from "../models/index.js";
-import generateToken from "../utils/generateToken.js";
 import { validationResult } from "express-validator";
 
 export const register = async (req, res) => {
