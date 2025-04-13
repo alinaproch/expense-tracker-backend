@@ -1,22 +1,15 @@
 import express from "express";
-import { register, login } from "../controllers/userController.js";
-import { check } from "express-validator";
-import { validateRequest } from "../middlewares/validationMiddleware.js";
+import {
+  getUserProfile,
+  updateUserProfile,
+  deleteUser,
+} from "../controllers/userController.js";
+import authMiddleware from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
-router.post(
-  "/register",
-  [check("email").isEmail(), check("password").isLength({ min: 6 })],
-  validateRequest,
-  register
-);
-
-router.post(
-  "/login",
-  [check("email").isEmail(), check("password").exists()],
-  validateRequest,
-  login
-);
+router.get("/profile", authMiddleware, getUserProfile);
+router.put("/profile", authMiddleware, updateUserProfile);
+router.delete("/profile", authMiddleware, deleteUser);
 
 export default router;

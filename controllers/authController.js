@@ -1,6 +1,8 @@
+// controllers/authController.js
 import bcrypt from "bcryptjs";
 import { User } from "../models/index.js";
 import { validationResult } from "express-validator";
+import generateToken from "../utils/generateToken.js";
 
 export const register = async (req, res) => {
   const errors = validationResult(req);
