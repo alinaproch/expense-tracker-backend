@@ -1,6 +1,5 @@
 import Category from "../models/Category.js";
 
-// Получение всех категорий
 export const getCategories = async (req, res) => {
   try {
     const categories = await Category.findAll();
@@ -10,7 +9,6 @@ export const getCategories = async (req, res) => {
   }
 };
 
-// Создание категории
 export const createCategory = async (req, res) => {
   const { name } = req.body;
 

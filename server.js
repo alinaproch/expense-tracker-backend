@@ -21,14 +21,14 @@ app.use("/api/categories", categoryRoutes);
 sequelize
   .authenticate()
   .then(() => {
-    console.log("✅ Connected to PostgreSQL");
+    console.log("Connected to PostgreSQL");
 
     return sequelize.sync();
   })
   .then(() => {
     const PORT = process.env.PORT || 5000;
     app.listen(PORT, () => {
-      console.log(`🚀 Server running on http://localhost:${PORT}`);
+      console.log(`Server running on http://localhost:${PORT}`);
     });
   })
-  .catch((err) => console.error("❌ DB connection error:", err));
+  .catch((err) => console.error(" DB connection error:", err));
